@@ -113,6 +113,31 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
+  const addGuestBtn = document.getElementById('addGuestBtn');
+  if (addGuestBtn) {
+    addGuestBtn.addEventListener('click', function () {
+      const modal = new bootstrap.Modal(document.getElementById('addGuestModal'));
+      modal.show();
+    });
+  }
+
+  const addGuestForm = document.getElementById('addGuestForm');
+  if (addGuestForm) {
+    addGuestForm.onsubmit = async function (e) {
+      e.preventDefault();
+      const formData = new FormData(addGuestForm);
+      await fetch('/admin/add-guest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: formData.get('name') })
+      });
+      alert('Guest added!');
+      addGuestForm.reset();
+      bootstrap.Modal.getInstance(document.getElementById('addGuestModal')).hide();
+      // Optionally reload guest list here
+    };
+  }
 });
 
 function openRsvp(id) {
@@ -149,3 +174,17 @@ async function rsvpDecline(id) {
   });
   alert('We’re sorry to miss you!');
 }
+
+async function loadDietaryRequirements() {
+  const res = await fetch('/dietary-requirements');
+  const options = await res.json();
+  const select = document.querySelector('select[name="dietary"]');
+  if (select) {
+    select.innerHTML =
+      `<option value="">Select</option>` +
+      options.map(opt =>
+        `<option value="${opt.name}">${opt.name}</option>`
+      ).join('');
+  }
+}
+document.addEventListener('DOMContentLoaded', loadDietaryRequirements);

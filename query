@@ -1,8 +1,22 @@
 INSERT INTO guests (name, family_name)
 VALUES
-  ('Tanvi', 'Tanvi Gaikwad'),
-  ('Shubham', 'Tanvi Gaikwad'),
-  ('Shafiq', 'Shafiq'),
-  ('Yushra', 'Shafiq'),
-  ('Shafiq', 'Shafiq'),
-  ('Shafiq', 'Shafiq');
+  ('Hammy', 'Hammy'),
+  ('Abd', 'Hammy'),
+  ('Nomi', 'Hammy');
+;
+  ----------------------------------------------
+
+  CREATE TABLE dietary_requirements (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  is_active BOOLEAN
+);
+
+INSERT INTO dietary_requirements (name, is_active)
+VALUES
+  ('Vegetarian', TRUE),
+  ('Vegan', TRUE),
+  ('Gluten Free', TRUE),
+  ('Halal', TRUE),
+  ('Kosher', TRUE),
+  ('None', TRUE);

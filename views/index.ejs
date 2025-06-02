@@ -75,7 +75,7 @@
           <div class="modal-body">
             <div class="mb-3">
               <label class="form-label">Dietary Requirements:</label>
-              <input type="text" name="dietary" class="form-control" />
+              <select name="dietary" class="form-select"></select>
             </div>
             <div class="mb-3">
               <label class="form-label">Coming with anyone? How many?</label>
@@ -94,6 +94,28 @@
               style="background-color: #6a5a44; color: #fff; font-style: italic; font-size: 1rem; border: none;">
               Submit RSVP
             </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <% if (isAdmin) { %>
+  <button id="addGuestBtn" class="btn btn-primary mb-3">Add Guest</button>
+  <% } %>
+  <div class="modal fade" id="addGuestModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="addGuestForm">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Guest</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <input type="text" name="name" class="form-control mb-2" placeholder="Guest Name" required>
+            <!-- Add more fields as needed -->
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Add</button>
           </div>
         </form>
       </div>

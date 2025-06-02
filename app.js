@@ -10,6 +10,12 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// 1. Main route FIRST, pass isAdmin (true for testing)
+app.get('/', (req, res) => {
+  res.render('index', { isAdmin: true }); // Set to true for testing
+});
+
+// 2. Register guest routes AFTER main /
 app.use('/', guestRoutes);
 
 app.post('/search', async (req, res) => {
@@ -32,6 +38,17 @@ app.get('/accepted-guests', async (req, res) => {
       'SELECT name FROM guests WHERE rsvp_response = "accepted"'
     );
     res.json(guests);
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+app.get('/dietary-requirements', async (req, res) => {
+  try {
+    const [rows] = await db.execute(
+      'SELECT name FROM dietary_requirements WHERE is_active = 1'
+    );
+    res.json(rows);
   } catch (err) {
     res.status(500).json({ error: 'Database error' });
   }
