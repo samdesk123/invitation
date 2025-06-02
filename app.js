@@ -41,3 +41,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+console.log('Starting app...');
+console.log('PORT:', process.env.PORT);
+console.log('DB HOST:', process.env.DB_HOST); // or your DB env var
