@@ -22,7 +22,6 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
 
   guests.forEach((guest, idx) => {
     const div = document.createElement('div');
-    const collapseId = `guestDetails${idx}`;
     div.innerHTML = `
       <div class="d-flex align-items-start mb-3" style="gap:1rem;">
         <div style="min-width:140px;">
@@ -50,25 +49,19 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
             `
               : ''
           }
-          <a href="#" class="invite-text wedding-font ms-2"
-             data-bs-toggle="collapse" data-bs-target="#${collapseId}"
-             aria-expanded="false" aria-controls="${collapseId}"
-             style="cursor:pointer; text-decoration:underline; font-size:0.95rem;">
-            More details
-          </a>
-          <div class="collapse mt-2" id="${collapseId}">
-            <div style="font-size:0.85rem; color:#a08e6f; margin-top:20px; text-transform:uppercase; letter-spacing:1px;">
-              ${guest.rsvp_response === 'accepted' ? `
-                <div><strong>Dietary:</strong> ${guest.dietary_requirements || 'None'}</div>
-                <div><strong>Additional Guests:</strong> ${guest.additional_guests || 0}</div>
-                <div><strong>Children Attending:</strong> ${guest.has_children ? 'Yes' : 'No'}</div>
-              ` : guest.rsvp_response === 'declined' ? `
-                <div><strong>Sorry you can't make it.</strong></div>
-              ` : `
-                <div><strong>Please RSVP.</strong></div>
-              `}
-            </div>
-          </div>
+<div class="mt-2" style="font-size:0.85rem; color:#a08e6f; text-transform:uppercase; letter-spacing:1px;">
+  ${
+    guest.rsvp_response === 'accepted'
+      ? `
+        <div><strong>Dietary</strong>: <span style="font-weight:normal;">${guest.dietary_requirements || 'None'}</span></div>
+        <div><strong>Additional Guests</strong>: <span style="font-weight:normal;">${guest.additional_guests || 0}</span></div>
+        <div><strong>Children Attending</strong>: <span style="font-weight:normal;">${guest.has_children ? 'Yes' : 'No'}</span></div>
+      `
+      : guest.rsvp_response === 'declined'
+      ? `<div><strong>Sorry you can't make it.</strong></div>`
+      : `<div><strong>Please RSVP.</strong></div>`
+  }
+</div>
         </div>
       </div>
     `;
@@ -127,15 +120,31 @@ document.addEventListener('DOMContentLoaded', function () {
     addGuestForm.onsubmit = async function (e) {
       e.preventDefault();
       const formData = new FormData(addGuestForm);
-      await fetch('/admin/add-guest', {
+      const family_name = formData.get('family_name');
+      const names = formData.get('names')
+        .split('\n')
+        .map(n => n.trim())
+        .filter(Boolean);
+
+      if (!family_name || names.length === 0) {
+        alert('Please enter a family name and at least one guest.');
+        return;
+      }
+
+      const res = await fetch('/admin/add-guest', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: formData.get('name') })
+        body: JSON.stringify({ family_name, names })
       });
-      alert('Guest added!');
-      addGuestForm.reset();
-      bootstrap.Modal.getInstance(document.getElementById('addGuestModal')).hide();
-      // Optionally reload guest list here
+
+      if (res.ok) {
+        alert('Guests added!');
+        addGuestForm.reset();
+        bootstrap.Modal.getInstance(document.getElementById('addGuestModal')).hide();
+        // Optionally reload guest list here
+      } else {
+        alert('Error adding guests.');
+      }
     };
   }
 });

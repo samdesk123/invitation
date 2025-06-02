@@ -54,6 +54,24 @@ app.get('/dietary-requirements', async (req, res) => {
   }
 });
 
+app.post('/admin/add-guest', async (req, res) => {
+  const { family_name, names } = req.body;
+  if (!family_name || !Array.isArray(names) || names.length === 0) {
+    return res.status(400).json({ error: 'Missing family_name or names' });
+  }
+  try {
+    for (const name of names) {
+      await db.execute(
+        'INSERT INTO guests (name, family_name) VALUES (?, ?)',
+        [name, family_name]
+      );
+    }
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);

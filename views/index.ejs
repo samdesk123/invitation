@@ -15,6 +15,14 @@
     <div class="invitation-card mb-4">
       <div class="floral-border top"></div>
       <div class="content text-center">
+        <% if (isAdmin) { %>
+          <div class="d-flex justify-content-end">
+            <button id="addGuestBtn" class="btn mb-2"
+              style="background-color: #6a5a44; color: #fff; font-style: italic; font-size: 1rem; border: none;">
+              Add Guest
+            </button>
+          </div>
+        <% } %>
         <p class="intro">Together<br>with their families</p>
         <h1 class="names wedding-font">Sana<br>&<br>Sharvin</h1>
         <p class="invite-text">Invite you to their wedding</p>
@@ -99,20 +107,17 @@
       </div>
     </div>
   </div>
-  <% if (isAdmin) { %>
-  <button id="addGuestBtn" class="btn btn-primary mb-3">Add Guest</button>
-  <% } %>
   <div class="modal fade" id="addGuestModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <form id="addGuestForm">
           <div class="modal-header">
-            <h5 class="modal-title">Add Guest</h5>
+            <h5 class="modal-title">Add Family & Guests</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
-            <input type="text" name="name" class="form-control mb-2" placeholder="Guest Name" required>
-            <!-- Add more fields as needed -->
+            <input type="text" name="family_name" class="form-control mb-2" placeholder="Family Name (Primary)" required>
+            <textarea name="names" class="form-control mb-2" placeholder="Guest Names (one per line)" rows="4" required></textarea>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-success">Add</button>
