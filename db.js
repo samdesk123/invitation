@@ -6,6 +6,7 @@ const pool = mysql.createPool({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   socketPath: process.env.INSTANCE_UNIX_SOCKET,
+  host: process.env.DB_HOST, // Fallback if socketPath is not used
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0

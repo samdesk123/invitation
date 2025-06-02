@@ -1,5 +1,9 @@
 body {
-  background: #fdfcf7;
+  /* Remove or comment out the background image line */
+  /* background-image: url('/assets/background.jpg'); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   font-family: 'Calibri', Arial, sans-serif !important;
   min-height: 100vh;
   margin: 0;
@@ -40,17 +44,18 @@ input, select {
 }
 
 #guestList > div {
-  background: #fff;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(185,147,214,0.08);
-  padding: 1rem;
+  /* Remove background, border, box-shadow, and extra formatting */
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
   margin-bottom: 1rem;
-  border: 1px solid #f3e6fa;
-  text-align: center;
-  font-family: 'Dancing Script', cursive, sans-serif; /* Match invitation */
-  color: #6a5a44; /* Match invite-text */
-  font-style: italic; /* Match invite-text */
-  font-size: 1rem; /* Match invite-text */
+  border: none;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  font-style: normal;
+  font-size: inherit;
 }
 
 #guestList button {
@@ -82,6 +87,11 @@ input:focus, select:focus {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   position: relative;
   text-align: center;
+  /* Add the background image below */
+  background-image: url('/assets/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .floral-border {

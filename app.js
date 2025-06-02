@@ -10,6 +10,12 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// 1. Main route FIRST, pass isAdmin (true for testing)
+app.get('/', (req, res) => {
+  res.render('index', { isAdmin: true }); // Set to true for testing
+});
+
+// 2. Register guest routes AFTER main /
 app.use('/', guestRoutes);
 
 app.post('/search', async (req, res) => {
@@ -32,6 +38,35 @@ app.get('/accepted-guests', async (req, res) => {
       'SELECT name FROM guests WHERE rsvp_response = "accepted"'
     );
     res.json(guests);
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+app.get('/dietary-requirements', async (req, res) => {
+  try {
+    const [rows] = await db.execute(
+      'SELECT name FROM dietary_requirements WHERE is_active = 1'
+    );
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+app.post('/admin/add-guest', async (req, res) => {
+  const { family_name, names } = req.body;
+  if (!family_name || !Array.isArray(names) || names.length === 0) {
+    return res.status(400).json({ error: 'Missing family_name or names' });
+  }
+  try {
+    for (const name of names) {
+      await db.execute(
+        'INSERT INTO guests (name, family_name) VALUES (?, ?)',
+        [name, family_name]
+      );
+    }
+    res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: 'Database error' });
   }
