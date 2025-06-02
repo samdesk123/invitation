@@ -1,0 +1,8 @@
+INSERT INTO guests (name, family_name)
+VALUES
+  ('Tanvi', 'Tanvi Gaikwad'),
+  ('Shubham', 'Tanvi Gaikwad'),
+  ('Shafiq', 'Shafiq'),
+  ('Yushra', 'Shafiq'),
+  ('Shafiq', 'Shafiq'),
+  ('Shafiq', 'Shafiq');

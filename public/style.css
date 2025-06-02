@@ -1,0 +1,155 @@
+body {
+  background: #fdfcf7;
+  font-family: 'Calibri', Arial, sans-serif !important;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.wedding-font {
+  font-family: 'Dancing Script', cursive, sans-serif;
+  color: #b993d6;
+  letter-spacing: 2px;
+}
+
+.card {
+  border-radius: 1rem;
+  border: 1px solid #f3e6fa;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #b993d6 0%, #8ca6db 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #8ca6db 0%, #b993d6 100%);
+}
+
+.modal-content {
+  border-radius: 1rem;
+}
+
+input, select {
+  border-radius: 0.5rem !important;
+}
+
+.fst-italic {
+  font-family: 'Dancing Script', cursive, sans-serif;
+  font-size: 1.3rem;
+  color: #b993d6;
+}
+
+#guestList > div {
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(185,147,214,0.08);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #f3e6fa;
+  text-align: center;
+  font-family: 'Dancing Script', cursive, sans-serif; /* Match invitation */
+  color: #6a5a44; /* Match invite-text */
+  font-style: italic; /* Match invite-text */
+  font-size: 1rem; /* Match invite-text */
+}
+
+#guestList button {
+  margin: 0 0.5rem;
+  background-color: #6a5a44;
+  color: #fff;
+  font-style: italic;
+  font-family: 'Dancing Script', cursive, sans-serif;
+  font-size: 1rem;
+  border: none;
+}
+
+#guestList button[data-action="decline"] {
+  background-color: #fff;
+  color: #6a5a44;
+  border: 1px solid #6a5a44;
+}
+
+input:focus, select:focus {
+  border-color: #b993d6 !important;
+  box-shadow: 0 0 0 0.2rem rgba(185,147,214,0.15) !important;
+}
+
+.invitation-card {
+  width: 400px;
+  padding: 30px 20px;
+  background: white;
+  border: 1px solid #e0d9cd;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  position: relative;
+  text-align: center;
+}
+
+.floral-border {
+  height: 80px;
+  background-image: url('floral-border-top.png'); /* Replace with actual image URL */
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.floral-border.bottom {
+  transform: rotate(180deg);
+  margin-top: 20px;
+}
+
+.content .intro {
+  font-size: 0.9rem;
+  color: #6a5a44;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.names {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #5a4a3c;
+  margin: 10px 0;
+  line-height: 1.2;
+}
+
+.invite-text {
+  font-size: 1rem;
+  color: #6a5a44;
+  margin-bottom: 15px;
+  font-style: italic; /* Ensure italic everywhere */
+}
+
+.date {
+  font-size: 1rem;
+  margin: 10px 0;
+  color: #444;
+}
+
+.venue {
+  font-size: 0.95rem;
+  color: #5e5443;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: #a08e6f;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+span.wedding-font.invite-text {
+  font-family: Calibri, Arial, sans-serif;
+  color: #6a5a44;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.guest-info-col {
+  font-family: Calibri, Arial, sans-serif;
+  color: #6a5a44;
+  font-style: italic;
+  font-size: 1rem;
+}

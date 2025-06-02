@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wedding Invitation</title>
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script:700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script defer src="/main.js"></script>
+</head>
+<body>
+  <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="invitation-card mb-4">
+      <div class="floral-border top"></div>
+      <div class="content text-center">
+        <p class="intro">Together<br>with their families</p>
+        <h1 class="names wedding-font">Sana<br>&<br>Sharvin</h1>
+        <p class="invite-text">Invite you to their wedding</p>
+        <p class="date">15th May, 2023<br>Five o'clock in the evening</p>
+        <p class="venue">
+          Ceremony at<br>
+          123 Any Where St., Any City
+        </p>
+        <p class="note">DETAILS: PLEASE VISIT OUR WEBSITE</p>
+        <div class="mt-4">
+          <form id="searchForm" class="p-3">
+            <div class="mb-3">
+              <input
+                type="text"
+                id="fullName"
+                class="form-control text-center invite-text wedding-font"
+                placeholder="Enter your full name"
+                required
+                style="color: #6a5a44; font-style: italic; font-size: 1rem;"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn w-100 invite-text wedding-font"
+              style="background-color: #6a5a44; color: #fff; font-style: italic; font-size: 1rem; border: none;"
+            >
+              Find My Invitation
+            </button>
+          </form>
+          <div id="guestList" class="mt-3"></div>
+        </div>
+        <!-- Add below your search form -->
+        <div class="mt-2">
+          <a href="#" id="showAccepted" class="invite-text wedding-font"
+             data-bs-toggle="collapse" data-bs-target="#acceptedCollapse"
+             aria-expanded="false" aria-controls="acceptedCollapse"
+             style="cursor:pointer; text-decoration:underline;">
+            See who all are coming
+          </a>
+          <div class="collapse mt-2" id="acceptedCollapse">
+            <div id="acceptedList"></div>
+          </div>
+        </div>
+      </div>
+      <div class="floral-border bottom"></div>
+    </div>
+  </div>
+
+  <!-- Modal for RSVP -->
+  <div class="modal fade" tabindex="-1" id="rsvpModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="rsvpForm">
+          <div class="modal-header">
+            <h5 class="modal-title wedding-font">RSVP</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Dietary Requirements:</label>
+              <input type="text" name="dietary" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Coming with anyone? How many?</label>
+              <input type="number" name="additionalCount" min="0" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Any children?</label>
+              <select name="hasKids" class="form-select">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn w-100 invite-text wedding-font"
+              style="background-color: #6a5a44; color: #fff; font-style: italic; font-size: 1rem; border: none;">
+              Submit RSVP
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
