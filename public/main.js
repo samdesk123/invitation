@@ -207,3 +207,20 @@ async function loadDietaryRequirements() {
   }
 }
 document.addEventListener('DOMContentLoaded', loadDietaryRequirements);
+
+document.getElementById('askGuestBtn').onclick = async function() {
+  const question = document.getElementById('guestQuestion').value;
+  const answerDiv = document.getElementById('guestAnswer');
+  answerDiv.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <span>Searching...</span>`;
+  try {
+    const res = await fetch('/ask-guest', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question })
+    });
+    const data = await res.json();
+    answerDiv.innerText = data.answer || data.error;
+  } catch (err) {
+    answerDiv.innerText = "Error fetching response.";
+  }
+};

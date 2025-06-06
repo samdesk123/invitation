@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const guestRoutes = require('./routes/guest');
 const db = require('./db'); // adjust path if needed
+const { execFile } = require('child_process');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -70,6 +71,17 @@ app.post('/admin/add-guest', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: 'Database error' });
   }
+});
+
+app.post('/ask-guest', (req, res) => {
+  const { question } = req.body;
+  const scriptPath = path.join(__dirname, 'query_guest.py');
+  execFile('python3', [scriptPath, question], (error, stdout, stderr) => {
+    if (error) {
+      return res.status(500).json({ error: stderr || error.message });
+    }
+    res.json({ answer: stdout.trim() });
+  });
 });
 
 const PORT = process.env.PORT || 3000;
