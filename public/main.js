@@ -25,43 +25,51 @@ document.getElementById('searchForm').addEventListener('submit', async (e) => {
     div.innerHTML = `
       <div class="d-flex align-items-start mb-3" style="gap:1rem;">
         <div style="min-width:140px;">
-          <span class="wedding-font invite-text" style="color:#6a5a44;font-style:italic;font-size:1.1rem;">
+          <span class="wedding-font invite-text" style="color:#6a5a44;font-style:italic;font-size:1.1rem; cursor:pointer;"
+            data-guest-id="${guest.id}" data-action="update">
             ${guest.name}
           </span>
         </div>
         <div class="guest-info-col invite-text wedding-font" style="color:#6a5a44;font-style:italic;font-size:1rem;">
           <div><strong>Status:</strong> ${guest.rsvp_response ? guest.rsvp_response.charAt(0).toUpperCase() + guest.rsvp_response.slice(1) : 'Pending'}</div>
-          ${
-            !guest.rsvp_response || guest.rsvp_response === 'pending'
-              ? `
-              <div class="d-flex mt-2" style="gap:0.5rem;">
-                <button class="btn btn-success btn-sm invite-text wedding-font"
-                  data-guest-id="${guest.id}" data-action="accept"
-                  style="background-color: #6a5a44; color: #fff; font-style: italic; font-size: 1rem; border: none;">
-                  Accept
-                </button>
-                <button class="btn btn-outline-danger btn-sm invite-text wedding-font"
-                  data-guest-id="${guest.id}" data-action="decline"
-                  style="font-style: italic; font-size: 1rem;">
-                  Decline
-                </button>
-              </div>
-            `
-              : ''
-          }
-<div class="mt-2" style="font-size:0.85rem; color:#a08e6f; text-transform:uppercase; letter-spacing:1px;">
-  ${
-    guest.rsvp_response === 'accepted'
-      ? `
-        <div><strong>Dietary</strong>: <span style="font-weight:normal;">${guest.dietary_requirements || 'None'}</span></div>
-        <div><strong>Additional Guests</strong>: <span style="font-weight:normal;">${guest.additional_guests || 0}</span></div>
-        <div><strong>Children Attending</strong>: <span style="font-weight:normal;">${guest.has_children ? 'Yes' : 'No'}</span></div>
-      `
-      : guest.rsvp_response === 'declined'
-      ? `<div><strong>Sorry you can't make it.</strong></div>`
-      : `<div><strong>Please RSVP.</strong></div>`
-  }
-</div>
+          <div class="d-flex mt-2" style="gap:0.5rem;">
+            ${
+              (!guest.rsvp_response || guest.rsvp_response === 'pending')
+                ? `
+                  <button class="btn btn-success btn-sm invite-text wedding-font"
+                    data-guest-id="${guest.id}" data-action="accept"
+                    style="background-color: #6a5a44; color: #fff; font-style: italic; font-size: 1rem; border: none;">
+                    Accept
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm invite-text wedding-font"
+                    data-guest-id="${guest.id}" data-action="decline"
+                    style="font-style: italic; font-size: 1rem;">
+                    Decline
+                  </button>
+                `
+                : ''
+            }
+          </div>
+          <div class="mt-2" style="font-size:0.75rem; color:#a08e6f; text-transform:uppercase; letter-spacing:1px;">
+            ${
+              guest.rsvp_response === 'accepted'
+                ? `
+                  <div style="margin-bottom:2px;"><strong>Dietary</strong>: <span style="font-weight:normal;">${guest.dietary_requirements || 'None'}</span></div>
+                  <div style="margin-bottom:2px;"><strong>Additional Guests</strong>: <span style="font-weight:normal;">${guest.additional_guests || 0}</span></div>
+                  <div style="margin-bottom:2px;"><strong>Children Attending</strong>: <span style="font-weight:normal;">${guest.has_children ? 'Yes' : 'No'}</span></div>
+                `
+                : guest.rsvp_response === 'declined'
+                ? `<div><strong>Sorry you can't make it.</strong></div>`
+                : `<div><strong>Please RSVP.</strong></div>`
+            }
+          </div>
+          <div class="mt-3">
+            <span class="invite-text wedding-font"
+              data-guest-id="${guest.id}" data-action="update"
+              style="display:inline-block; color:#6a5a44; font-style:italic; font-size:1rem; text-decoration:underline; cursor:pointer;">
+              Update RSVP
+            </span>
+          </div>
         </div>
       </div>
     `;
@@ -85,6 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
       openRsvp(e.target.dataset.guestId);
     } else if (e.target.dataset.action === 'decline') {
       rsvpDecline(e.target.dataset.guestId);
+    } else if (e.target.dataset.action === 'update') {
+      openRsvp(e.target.dataset.guestId); // Now works for both name and button
     }
   });
 
@@ -157,7 +167,7 @@ function openRsvp(id) {
     const formData = new FormData(e.target);
     const data = {
       guestId: id,
-      response: 'accepted',
+      response: formData.get('rsvpStatus'), // get value from dropdown
       dietary: formData.get('dietary'),
       additionalCount: parseInt(formData.get('additionalCount')),
       hasKids: formData.get('hasKids') === 'true'
